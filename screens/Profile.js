@@ -1,6 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
 import React, { useEffect } from "react";
-import { Text, View } from "react-native";
 import styled from "styled-components";
 import { logUserOut } from "../apollo";
 import AuthButton from "../components/auth/AuthButton";
