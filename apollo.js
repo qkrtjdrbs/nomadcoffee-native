@@ -3,6 +3,7 @@ import {
   createHttpLink,
   InMemoryCache,
   makeVar,
+  useReactiveVar,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { offsetLimitPagination } from "@apollo/client/utilities";
@@ -26,7 +27,7 @@ export const logUserOut = async () => {
 };
 
 const httpLink = createHttpLink({
-  uri: "http://a4bb4c728401.ngrok.io/graphql",
+  uri: "http://9b2b90741dab.ngrok.io/graphql",
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -48,6 +49,15 @@ const client = new ApolloClient({
           //It prevents Apollo from distinguishing seeFeed queries according to arguments.
           //It combines old data with new data.
           seeCoffeeShops: offsetLimitPagination(),
+        },
+      },
+      CoffeeShop: {
+        fields: {
+          user: {
+            merge(existing, incoming) {
+              return incoming;
+            },
+          },
         },
       },
     },

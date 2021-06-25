@@ -24,8 +24,9 @@ export default function App() {
     //and if exist then change it to a login state.
     const token = await AsyncStorage.getItem("token");
     if (token) {
+      const newToken = token.slice(1, token.length - 1);
       isLoggedInVar(true);
-      tokenVar(token);
+      tokenVar(newToken);
     }
     return preloadAssets();
   };

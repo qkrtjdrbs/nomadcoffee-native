@@ -4,3 +4,7 @@
 로그인 후 다른 사람의 프로필 들어가도 log out 버튼이 뜸
 -> 이전에 다른 아이디의 내가 내 프로필 들어가서 log out버튼 떴는데, 그 때 캐시가 저장되어 불러오는 문제 
 seeProfile query에 fetchPolicy: "no-cache" 사용해서 cache를 사용안하면 프로필 누를 때 마다 업데이트 됨
+
+token 전달 시, App.js의 preload 함수에서 const token = await AsyncStorage.getItem("token"); 줄에서
+token에 ""이 씌워져 전달되어서 유저 인식을 못함.
+-> 맨앞 맨뒤 ""를 없애서 전달했더니 해결

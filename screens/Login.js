@@ -27,6 +27,7 @@ export default function Login({ route: { params } }) {
     watch,
     setError,
     formState: { errors },
+    clearErrors,
   } = useForm({
     defaultValues: {
       username: params?.username,

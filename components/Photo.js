@@ -46,7 +46,7 @@ export default function Photo({ id, name, user, photos, categories }) {
     });
   }, [photos]);
   return (
-    <Container>
+    <Container key={id}>
       <Header
         onPress={() =>
           navigation.navigate("Profile", {
@@ -75,10 +75,10 @@ export default function Photo({ id, name, user, photos, categories }) {
           Categories :{" "}
           {categories?.length ? (
             categories.map((c) =>
-              c.slug.length ? c.slug : <Text key={c.id}>❌</Text>
+              c?.slug?.length ? c.slug : <Text key={c.id}>❌</Text>
             )
           ) : (
-            <Text>❌</Text>
+            <Text key={id}>❌</Text>
           )}
         </Text>
       </ExtraContainer>
@@ -87,11 +87,11 @@ export default function Photo({ id, name, user, photos, categories }) {
 }
 
 Photo.propTypes = {
-  name: PropTypes.string.isRequired,
+  name: PropTypes.string,
   user: PropTypes.shape({
-    username: PropTypes.string.isRequired,
+    username: PropTypes.string,
     avatarURL: PropTypes.string,
-  }).isRequired,
+  }),
   photos: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,

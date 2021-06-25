@@ -40,10 +40,11 @@ export default function Home() {
   };
   const refresh = async () => {
     setRefreshing(true);
-    await refetch();
+    await refetch({ offset: 0 });
     setRefreshing(false);
   };
   const [refreshing, setRefreshing] = useState(false);
+
   return (
     <ScreenLayout loading={loading}>
       <FlatList

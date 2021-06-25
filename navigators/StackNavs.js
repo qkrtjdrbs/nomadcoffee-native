@@ -7,6 +7,7 @@ import Search from "../screens/Search";
 import Home from "../screens/Home";
 import Login from "../screens/Login";
 import Me from "../screens/Me";
+import PhotoScreen from "../screens/PhotoScreen";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ export default function StackNavs({ screenName }) {
         <Stack.Screen name="Me" component={isLoggedIn ? Me : Login} />
       ) : null}
       <Stack.Screen name="Profile" component={isLoggedIn ? Profile : Login} />
+      <Stack.Screen name="PhotoScreen" component={PhotoScreen} />
     </Stack.Navigator>
   );
 }
