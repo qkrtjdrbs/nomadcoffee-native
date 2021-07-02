@@ -1,11 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import { gql, useMutation } from "@apollo/client";
-import { Text } from "react-native";
+import { Text, TouchableOpacity } from "react-native";
 import { useForm } from "react-hook-form";
 import { logUserIn } from "../apollo";
 import AuthButton from "../components/auth/AuthButton";
 import AuthLayout from "../components/auth/AuthLayout";
 import { TextInput } from "../components/auth/AuthShared";
+import styled from "styled-components/native";
+import { color } from "../color";
 
 const LOGIN_MUTATION = gql`
   mutation login($username: String!, $password: String!) {
@@ -17,7 +19,17 @@ const LOGIN_MUTATION = gql`
   }
 `;
 
-export default function Login({ route: { params } }) {
+const CreateAccountText = styled.Text`
+  color: ${color.blue};
+  font-weight: 700;
+`;
+
+const Error = styled.Text`
+  color: tomato;
+  font-weight: 700;
+`;
+
+export default function Login({ navigation, route: { params } }) {
   //simular to lacation.state.username, password
   const {
     register,
@@ -65,7 +77,7 @@ export default function Login({ route: { params } }) {
   }, [register]);
   return (
     <AuthLayout>
-      <Text>{errors?.result?.message}</Text>
+      <Error>{errors?.result?.message}</Error>
       <TextInput
         value={watch("username")}
         placeholder="Username"
@@ -97,6 +109,12 @@ export default function Login({ route: { params } }) {
         disabled={!watch("username") || !watch("password")}
         onPress={handleSubmit(onValid)}
       />
+      <TouchableOpacity
+        style={{ marginTop: 50 }}
+        onPress={() => navigation.navigate("CreateAccount")}
+      >
+        <CreateAccountText>No Account?</CreateAccountText>
+      </TouchableOpacity>
     </AuthLayout>
   );
 }

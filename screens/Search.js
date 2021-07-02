@@ -97,11 +97,14 @@ export default function Search({ navigation }) {
     await refetch();
     setRefreshing(false);
   };
-  const renderItem = ({ item: photo }) => (
+  const renderItem = ({ item: shop }) => (
     <TouchableOpacity
-      onPress={() => navigation.navigate("PhotoScreen", { photoId: photo.id })}
+      onPress={() => navigation.navigate("PhotoScreen", { photoId: shop.id })}
     >
-      <Text style={{ fontSize: 30 }}>{photo.name}</Text>
+      <Image
+        source={{ uri: shop.photos[0].url }}
+        style={{ height: 150, width: width / numColumns }}
+      />
     </TouchableOpacity>
   );
   return (
@@ -125,10 +128,10 @@ export default function Search({ navigation }) {
             </MessageContainer>
           ) : (
             <ScreenLayout loading={loading}>
-              <Text style={{ fontWeight: "700", fontSize: 50 }}>Cafe name</Text>
               <FlatList
                 refreshing={refreshing}
                 onRefresh={refresh}
+                numColumns={numColumns}
                 data={data?.searchCoffeeShop}
                 keyExtractor={(photo) => "" + photo.id}
                 renderItem={renderItem}

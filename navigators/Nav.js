@@ -1,50 +1,38 @@
 import React from "react";
-import TabIcon from "../components/nav/TabIcon";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import StackNavs from "./StackNavs";
+import { createStackNavigator } from "@react-navigation/stack";
+import TabsNav from "./TabsNav";
+import UploadNav from "./UploadNav";
+import UploadForm from "../screens/UploadForm";
+import { Ionicons } from "@expo/vector-icons";
+import CreateAccount from "../screens/CreateAccount";
 
-const Tabs = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
-export default function LoggedInNav() {
+export default function Nav() {
   return (
-    <Tabs.Navigator
-      tabBarOptions={{
-        style: {
-          borderTopColor: "rgba(255, 255, 255, 0.5)",
-        },
-        showLabel: false,
-      }}
-    >
-      <Tabs.Screen
-        name="Home"
+    <Stack.Navigator mode="modal">
+      <Stack.Screen
+        name="Tabs"
+        options={{ headerShown: false }}
+        component={TabsNav}
+      />
+      <Stack.Screen
+        name="Upload"
+        options={{ headerShown: false }}
+        component={UploadNav}
+      />
+      <Stack.Screen
+        name="UploadForm"
         options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon iconName={"home"} focused={focused} />
+          title: "Upload",
+          headerBackTitleVisible: false,
+          headerBackImage: ({ tintColor }) => (
+            <Ionicons color={tintColor} name="close" size={40} />
           ),
         }}
-      >
-        {() => <StackNavs screenName="Home" />}
-      </Tabs.Screen>
-      <Tabs.Screen
-        name="Search"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon iconName={"search"} focused={focused} />
-          ),
-        }}
-      >
-        {() => <StackNavs screenName="Search" />}
-      </Tabs.Screen>
-      <Tabs.Screen
-        name="Me"
-        options={{
-          tabBarIcon: ({ focused }) => (
-            <TabIcon iconName={"person"} focused={focused} />
-          ),
-        }}
-      >
-        {() => <StackNavs screenName="Me" />}
-      </Tabs.Screen>
-    </Tabs.Navigator>
+        component={UploadForm}
+      />
+      <Stack.Screen name="CreateAccount" component={CreateAccount} />
+    </Stack.Navigator>
   );
 }
